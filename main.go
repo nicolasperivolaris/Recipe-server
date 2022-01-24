@@ -71,7 +71,7 @@ var db *sql.DB
 
 func main() {
 	//start listening
-	l, err := net.Listen(connType, connHost+":"+connPort)
+	l, err := net.Listen(connType, "172.20.0.2"+":"+connPort)
 	if err != nil {
 		fmt.Println("Error listening:", err.Error())
 		os.Exit(1)
