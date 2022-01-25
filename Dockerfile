@@ -1,7 +1,14 @@
-FROM golang:last
-WORKDIR /go
-COPY . .
+FROM golang:latest AS build
+WORKDIR /app
+COPY go.mod ./
+COPY go.sum ./
 RUN go mod download
-RUN go build main.go
+COPY *.go ./
+RUN go build -o /go-recipe-srv
+
+FROM gcr.io/distroless/base-debian10
+WORKDIR /
+COPY --from=build /go-recipe-srv /go-recipe-srv
 EXPOSE 5500
-CMD [main]
+USER nonroot:nonroot
+ENTRYPOINT ["/go-recipe-srv"]
