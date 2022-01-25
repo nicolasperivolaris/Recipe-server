@@ -22,7 +22,7 @@ const (
 	dbServer = "db"
 	port     = 3306
 	user     = "root"
-	password = "1111111"
+	password = "Isib1111"
 	database = "dailyrecipe"
 
 	REC_LIST       = 0
