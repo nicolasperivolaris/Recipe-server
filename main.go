@@ -16,10 +16,12 @@ import (
 )
 
 const (
-	connHost = "go-srv"
+	//connHost = "go-srv"
+	connHost = "192.168.0.33"
 	connPort = "5500"
 	connType = "tcp"
-	dbServer = "db"
+	//dbServer = "db"
+	dbServer = "192.168.0.23"
 	port     = 3306
 	user     = "root"
 	password = "Isib1111"
@@ -165,7 +167,6 @@ func handleConnection(conn net.Conn) {
 	}
 	handleConnection(conn)
 }
-
 func sendRecipeAndAll(conn net.Conn) {
 	rows, err := db.Query("select * from recipe_has_ingredient order by recipe_id")
 	if err != nil {
@@ -174,7 +175,7 @@ func sendRecipeAndAll(conn net.Conn) {
 
 	buffer := bytes.NewBufferString("[")
 	for rows.Next() {
-		var data [4]int
+		var data [4]float32
 
 		err := rows.Scan(&data[0], &data[1], &data[2], &data[3])
 		if err != nil {
@@ -420,14 +421,14 @@ func saveIngredient(conn net.Conn, arg string) {
 		result++
 	}
 	if ingredientExist(ingredient) {
-		row, err := db.Query("REPLACE INTO recipe (id, name, image_path) VALUE (?,?,?) WHERE id = '"+strconv.Itoa(ingredient.Id)+"'",
+		row, err := db.Query("REPLACE INTO ingredient (id, name, image_path) VALUE (?,?,?) WHERE id = '"+strconv.Itoa(ingredient.Id)+"'",
 			strconv.Itoa(ingredient.Id), ingredient.Name, ingredient.ImagePath)
 		if err != nil || row == nil {
 			fmt.Println(err)
 			result++
 		}
 	} else {
-		row, err := db.Query("INSERT INTO recipe (name, image_path) VALUE (?,?)",
+		row, err := db.Query("INSERT INTO ingredient (name, image_path) VALUE (?,?)",
 			ingredient.Name, ingredient.ImagePath)
 		if err != nil || row == nil {
 			fmt.Println(err)
