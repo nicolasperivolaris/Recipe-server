@@ -16,12 +16,12 @@ import (
 )
 
 const (
-	//connHost = "go-srv"
-	connHost = "192.168.0.33"
+	connHost = "go-srv"
+	//connHost = "192.168.0.33"
 	connPort = "5500"
 	connType = "tcp"
-	//dbServer = "db"
-	dbServer = "192.168.0.23"
+	dbServer = "db"
+	//dbServer = "192.168.0.23"
 	port     = 3306
 	user     = "root"
 	password = "Isib1111"
